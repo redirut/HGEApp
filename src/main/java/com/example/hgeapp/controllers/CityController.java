@@ -4,6 +4,8 @@ import com.example.hgeapp.exceptions.ServicesException;
 import com.example.hgeapp.exceptions.ValidatorException;
 import com.example.hgeapp.models.City;
 import com.example.hgeapp.services.CityService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class CityController {
 
+    private final static Logger log = LoggerFactory.getLogger(CityController.class);
     private final CityService cityService;
 
     @Autowired
@@ -80,7 +83,7 @@ public class CityController {
     @RequestMapping(value = "/remove", method = RequestMethod.POST)
     ResponseEntity<?> removeCity(@RequestBody City city) {
         try {
-            cityService.remove(city);
+            cityService.removeById(city);
         } catch (ServicesException ex) {
             return new ResponseEntity<>(ex.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         } catch (ValidatorException ex) {

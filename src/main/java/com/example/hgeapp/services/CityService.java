@@ -18,7 +18,7 @@ public interface CityService {
 
     City updateCity(City city) throws ServicesException, ValidatorException;
 
-    void remove(City city) throws ServicesException, ValidatorException;
+    void removeById(City city) throws ServicesException, ValidatorException;
 
     void removeByName(String cityName) throws ServicesException, ValidatorException;
 }

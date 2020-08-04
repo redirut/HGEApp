@@ -85,7 +85,7 @@ public class CityServiceImpl implements CityService {
     }
 
     @Override
-    public void remove(City city) throws ServicesException, ValidatorException {
+    public void removeById(City city) throws ServicesException, ValidatorException {
         if (city == null) {
             log.debug("remove: City should not be null");
             throw new ServicesException("Illegal arguments. City should not be null");
@@ -105,4 +105,6 @@ public class CityServiceImpl implements CityService {
         validator.validateCityByName(cityName, cityRepository);
         cityRepository.deleteById(cityRepository.findByName(cityName).get().getId());
     }
+
+
 }
