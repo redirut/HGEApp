@@ -92,7 +92,7 @@ example:
 
 ---
 url:
-**POST**    `/remove/Minsk`         
+**POST**    `/remove/{cityName}`         
 
 info:
 Remove city by name.
