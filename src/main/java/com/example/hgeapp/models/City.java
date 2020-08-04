@@ -2,6 +2,7 @@ package com.example.hgeapp.models;
 
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import java.util.List;
@@ -16,7 +17,7 @@ public class City {
 
     private String name;
 
-    @ElementCollection
+    @ElementCollection(fetch = FetchType.EAGER)
     private List<String> notes;
 
     public City() {
