@@ -17,7 +17,7 @@ public class HgeTelegramBot extends TelegramLongPollingBot {
 
     private final static Logger log = LoggerFactory.getLogger(HgeTelegramBot.class);
     private final String BOT_USERNAME = "HGEApp_Bot";
-    private final String BOT_TOKEN = "11228169883:AAHDe_xocQpo-BqDNA4sGuDHKssxo6nLn_I";
+    private final String BOT_TOKEN = "1228169883:AAHDe_xocQpo-BqDNA4sGuDHKssxo6nLn_I";
 
     @Autowired
     private CityRepository cityRepository;
