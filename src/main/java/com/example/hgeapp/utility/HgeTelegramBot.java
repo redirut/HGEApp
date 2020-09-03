@@ -28,7 +28,7 @@ public class HgeTelegramBot extends TelegramLongPollingBot {
         if (update.getMessage().isCommand() && update.getMessage().getText().equals("/start")) {
             sendMessage(update.getMessage().getChatId().toString(), message);
         }
-        if (update.hasMessage() && update.getMessage().hasText()) {
+        else if (update.hasMessage() && update.getMessage().hasText()) {
             try {
                 cityRepository
                     .findByName(update.getMessage().getText())
