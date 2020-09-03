@@ -33,7 +33,7 @@ pipeline {
         }
         stage("start step") {
             steps {
-                sh 'mvn spring-boot:start'
+                sh 'mvn spring-boot:run'
             }
         }
     }
