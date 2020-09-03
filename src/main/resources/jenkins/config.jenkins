@@ -1,6 +1,5 @@
 #!groovy
 properties([disableConcurrentBuilds()])
-
 pipeline {
     agent {
         label 'master'
@@ -10,20 +9,22 @@ pipeline {
         buildDiscarder(logRotator(numToKeepStr: '10', artifactNumToKeepStr: '10'))
         timestamps()
     }
-    node {
-        stage('Example') {
-            try {
-                sh 'exit 1'
-            }
-            catch (exc) {
-                echo 'Something failed, I should sound the klaxons!'
-            }
-        }
-    }
     stages {
         stage("repackage step") {
             steps {
                 sh 'mvn clean package spring-boot:repackage'
+                script {
+                    node {
+                        stage('Example') {
+                            try {
+                                sh 'exit 1'
+                            }
+                            catch (exc) {
+                                echo 'Something failed, I should sound the klaxons!'
+                            }
+                        }
+                    }
+                }
             }
         }
         stage("stop step") {
