@@ -17,10 +17,6 @@ Telegram bot info:
 
 **name:**
 `HGEApp_Bot`
-    
-**token:**
-`***********************`
-
 
 ---
 **Api map:**
