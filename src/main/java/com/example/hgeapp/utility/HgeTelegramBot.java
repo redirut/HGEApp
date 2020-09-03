@@ -24,11 +24,10 @@ public class HgeTelegramBot extends TelegramLongPollingBot {
 
     @Override
     public void onUpdateReceived(Update update) {
-        String message = "Hello";
         if (update.getMessage().isCommand() && update.getMessage().getText().equals("/start")) {
-            sendMessage(update.getMessage().getChatId().toString(), message);
+            sendMessage(update.getMessage().getChatId().toString(), "Hello");
         }
-        else if (update.hasMessage() && update.getMessage().hasText()) {
+        if (update.hasMessage() && update.getMessage().hasText()) {
             try {
                 cityRepository
                     .findByName(update.getMessage().getText())
@@ -37,8 +36,8 @@ public class HgeTelegramBot extends TelegramLongPollingBot {
                     .stream()
                     .forEach(note -> sendMessage(update.getMessage().getChatId().toString(), note));
             } catch (NoSuchElementException ex) {
-                message = "Sorry, this " + update.getMessage().getText() + " city not found.";
-                sendMessage(update.getMessage().getChatId().toString(), message);
+                sendMessage(update.getMessage().getChatId().toString(), String.format( "Sorry, this  %s city not found.",
+                        update.getMessage().getText()));
             }
         }
     }
