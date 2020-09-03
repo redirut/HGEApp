@@ -11,14 +11,20 @@ pipeline {
         timestamps()
     }
     stages {
-        stage("First step") {
+        stage("repackage step") {
             steps {
-                sh 'hostname'
+                sh 'mvn clean package spring-boot:repackage'
             }
         }
-        stage("Second step") {
+        stage("stop step") {
             steps {
-                sh 'ls -la'
+                sh 'kill $(cat ./pid.file)'
+                sh 'rm -rf pid.file'
+            }
+        }
+        stage("start step") {
+            steps {
+                sh 'java -jar target/hgeapp-0.0.1-SNAPSHOT.jar & echo $! > ./pid.file &'
             }
         }
     }
