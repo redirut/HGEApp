@@ -18,15 +18,10 @@ pipeline {
         }
         stage("stop step") {
             try {
-                steps {
-                    sh 'kill $(cat ./pid.file)'
-                    sh 'rm -rf pid.file'
-                }
+                sh 'kill $(cat ./pid.file)'
+                sh 'rm -rf pid.file'
             } catch (exc) {
-                steps {
-                    sh 'echo > ./pid.file'
-                }
-
+                sh 'echo > ./pid.file'
             }
         }
         stage("start step") {
