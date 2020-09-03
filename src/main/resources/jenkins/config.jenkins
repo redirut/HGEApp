@@ -33,7 +33,7 @@ pipeline {
         }
         stage("start step") {
             steps {
-                sh 'java -jar target/hgeapp-0.0.1-SNAPSHOT.jar'
+                sh 'java -jar target/hgeapp-0.0.1-SNAPSHOT.jar &'
             }
         }
     }
