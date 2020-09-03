@@ -9,6 +9,7 @@ pipeline {
     options {
         buildDiscarder(logRotator(numToKeepStr: '10', artifactNumToKeepStr: '10'))
         timestamps()
+        skipStagesAfterUnstable()
     }
     stages {
         stage("repackage step") {
