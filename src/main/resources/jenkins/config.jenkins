@@ -9,17 +9,21 @@ pipeline {
     options {
         buildDiscarder(logRotator(numToKeepStr: '10', artifactNumToKeepStr: '10'))
         timestamps()
-        skipStagesAfterUnstable()
+    }
+    node {
+        stage('Example') {
+            try {
+                sh 'exit 1'
+            }
+            catch (exc) {
+                echo 'Something failed, I should sound the klaxons!'
+            }
+        }
     }
     stages {
         stage("repackage step") {
             steps {
                 sh 'mvn clean package spring-boot:repackage'
-            }
-        }
-        stage("create pid file step") {
-            steps {
-                sh 'echo > ./pid.file'
             }
         }
         stage("stop step") {
