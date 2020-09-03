@@ -17,6 +17,7 @@ pipeline {
             }
         }
         stage("stop step") {
+
             try {
                 sh 'kill $(cat ./pid.file)'
                 sh 'rm -rf pid.file'
@@ -24,6 +25,7 @@ pipeline {
                 sh 'echo > ./pid.file'
             }
         }
+
         stage("start step") {
             steps {
                 sh 'java -jar target/hgeapp-0.0.1-SNAPSHOT.jar & echo $! > ./pid.file &'
