@@ -19,12 +19,13 @@ pipeline {
             steps {
                 script {
                     node {
-                        stage('kill') {
+                        stage('stop') {
                             try {
-                                sh 'kill $(cat /var/lib/jenkins/workspace/pid.file)'
+                                //sh 'kill $(cat /var/lib/jenkins/workspace/pid.file)'
+                                sh 'mvn spring-boot:stop -Dspring-boot.stop.fork'
                             }
                             catch (exc) {
-                                echo 'kill failed!'
+                                echo 'stop failed!'
                             }
                         }
                     }
@@ -33,7 +34,7 @@ pipeline {
         }
         stage("start step") {
             steps {
-                sh 'mvn spring-boot:run'
+                sh 'mvn spring-boot:start -Dspring-boot.stop.fork'
             }
         }
     }
