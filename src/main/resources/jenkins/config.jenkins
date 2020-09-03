@@ -33,7 +33,7 @@ pipeline {
         }
         stage("start step") {
             steps {
-                sh 'mvn spring-boot:run & echo $! > /var/lib/jenkins/workspace/pid.file &'
+                sh 'mvn spring-boot:start'
             }
         }
     }
