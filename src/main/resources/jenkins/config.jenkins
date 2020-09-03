@@ -21,8 +21,7 @@ pipeline {
                     node {
                         stage('stop') {
                             try {
-                                //sh 'kill $(cat /var/lib/jenkins/workspace/pid.file)'
-                                sh 'mvn spring-boot:stop -Dspring-boot.stop.fork'
+                                sh 'kill $(cat ./pid.info)'
                             }
                             catch (exc) {
                                 echo 'stop failed!'
@@ -34,7 +33,7 @@ pipeline {
         }
         stage("start step") {
             steps {
-                sh 'mvn spring-boot:start -Dspring-boot.stop.fork'
+                sh 'java -jar target/hgeapp-0.0.1-SNAPSHOT.jar'
             }
         }
     }
