@@ -32,8 +32,8 @@ public class CityServiceImpl implements CityService {
             throw new ServicesException("Illegal arguments. City or note should not be null");
         }
         if (validator.validateCityExistByName(city.getName(), cityRepository)) {
-            log.debug("createCity: City with name " + city.getName() + "is exist");
-            throw new ServicesException("Name failure. City with name " + city.getName() + "is exist");
+            log.debug("createCity: City with name " + city.getName() + " is exist");
+            throw new ServicesException("Name failure. City with name " + city.getName() + " is exist");
         }
         return cityRepository.save(city);
     }

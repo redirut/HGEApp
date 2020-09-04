@@ -36,5 +36,10 @@ pipeline {
                 sh 'java -jar target/hgeapp-0.0.1-SNAPSHOT.jar &'
             }
         }
+        stage("init bot step") {
+            steps {
+                sh 'curl -v -H "Content-Type: application/json" -X POST -d \'enter here your bot token\' http://localhost:8081/init/HGEApp_Bot &'
+            }
+        }
     }
 }

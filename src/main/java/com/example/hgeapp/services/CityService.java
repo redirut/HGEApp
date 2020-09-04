@@ -4,8 +4,8 @@ import com.example.hgeapp.exceptions.ServicesException;
 import com.example.hgeapp.exceptions.ValidatorException;
 import com.example.hgeapp.models.City;
 
-import java.util.List;
 
+import java.util.List;
 public interface CityService {
 
     City createCity(City city) throws ServicesException;
