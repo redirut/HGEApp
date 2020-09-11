@@ -13,7 +13,7 @@ import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 public class HgeTelegramBot extends TelegramLongPollingBot {
 
     private final static Logger log = LoggerFactory.getLogger(HgeTelegramBot.class);
-    private String MESSAGE_HELLO = "Hello, use command '/stop' if you want stop bot";
+    private final String MESSAGE_HELLO = "Hello, use command '/stop' if you want stop bot";
     private String botUsername;
     private String botToken;
     private final CityService cityService;
