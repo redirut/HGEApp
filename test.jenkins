@@ -17,13 +17,18 @@ pipeline {
         }
         stage("build docker image steps") {
             steps {
-                sh 'docker rm hgeapp_main -f'
+                sh '''if [ -n $(docker ps -q) ]; then
+                        docker stop hgeapp_main 
+                    else 
+                        echo "non run" 
+                    fi'''
+                sh 'docker image prune -f'
+                sh 'docker container prune -f'
                 sh 'docker build -t hgeapp .'
             }
         }
         stage("run docker image step") {
             steps {
-                sh 'docker stop hgeapp_main'
                 sh 'docker run -d --name hgeapp_main -p 666:666 hgeapp'
             }
         }
