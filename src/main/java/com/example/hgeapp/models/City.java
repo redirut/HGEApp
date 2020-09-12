@@ -22,13 +22,7 @@ public class City {
 
     public City() {
     }
-
-    public City(Long id, String name, List<String> notes) {
-        this.id = id;
-        this.name = name;
-        this.notes = notes;
-    }
-
+    
     public Long getId() {
         return id;
     }
@@ -63,8 +57,8 @@ public class City {
         }
         City city = (City) o;
         return Objects.equals(id, city.id) &&
-            Objects.equals(name, city.name) &&
-            Objects.equals(notes, city.notes);
+                Objects.equals(name, city.name) &&
+                Objects.equals(notes, city.notes);
     }
 
     @Override

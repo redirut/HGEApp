@@ -4,8 +4,6 @@ import com.example.hgeapp.exceptions.ServicesException;
 import com.example.hgeapp.exceptions.ValidatorException;
 import com.example.hgeapp.models.City;
 import com.example.hgeapp.services.CityService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -25,14 +23,14 @@ public class CityController {
         this.cityService = cityService;
     }
 
-    @RequestMapping(value = "/add/{cityName}/add", method = RequestMethod.POST)
+    @RequestMapping(value = "/noteTo/{cityName}", method = RequestMethod.POST)
     ResponseEntity<?> addNoteToExistCity(@PathVariable String cityName, @RequestBody String note) {
         try {
             cityService.addNote(cityName, note);
         } catch (ServicesException ex) {
-            return new ResponseEntity<>("\n"+ex.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>("\n" + ex.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         } catch (ValidatorException ex) {
-            return new ResponseEntity<>("\n"+ex.getMessage(), HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>("\n" + ex.getMessage(), HttpStatus.NOT_FOUND);
         }
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
@@ -42,9 +40,9 @@ public class CityController {
         try {
             cityService.createCity(city);
         } catch (ServicesException ex) {
-            return new ResponseEntity<>("\n"+ex.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>("\n" + ex.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         } catch (ValidatorException ex) {
-            return new ResponseEntity<>("\n"+ex.getMessage(), HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>("\n" + ex.getMessage(), HttpStatus.NOT_FOUND);
         }
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
@@ -54,9 +52,9 @@ public class CityController {
         try {
             cityService.updateCity(city);
         } catch (ServicesException ex) {
-            return new ResponseEntity<>("\n"+ex.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>("\n" + ex.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         } catch (ValidatorException ex) {
-            return new ResponseEntity<>("\n"+ex.getMessage(), HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>("\n" + ex.getMessage(), HttpStatus.NOT_FOUND);
         }
         return new ResponseEntity<>(HttpStatus.OK);
     }
@@ -67,9 +65,9 @@ public class CityController {
         try {
             city = cityService.getCity(cityName);
         } catch (ServicesException ex) {
-            return new ResponseEntity<>("\n"+ex.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>("\n" + ex.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         } catch (ValidatorException ex) {
-            return new ResponseEntity<>("\n"+ex.getMessage(), HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>("\n" + ex.getMessage(), HttpStatus.NOT_FOUND);
         }
         return new ResponseEntity<>(city, HttpStatus.OK);
     }
@@ -84,9 +82,9 @@ public class CityController {
         try {
             cityService.removeById(city);
         } catch (ServicesException ex) {
-            return new ResponseEntity<>("\n"+ex.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>("\n" + ex.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         } catch (ValidatorException ex) {
-            return new ResponseEntity<>("\n"+ex.getMessage(), HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>("\n" + ex.getMessage(), HttpStatus.NOT_FOUND);
         }
         return new ResponseEntity<>(HttpStatus.OK);
     }
@@ -96,9 +94,9 @@ public class CityController {
         try {
             cityService.removeByName(cityName);
         } catch (ServicesException ex) {
-            return new ResponseEntity<>("\n"+ex.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>("\n" + ex.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         } catch (ValidatorException ex) {
-            return new ResponseEntity<>("\n"+ex.getMessage(), HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>("\n" + ex.getMessage(), HttpStatus.NOT_FOUND);
         }
         return new ResponseEntity<>(HttpStatus.OK);
     }

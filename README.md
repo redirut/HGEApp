@@ -36,21 +36,21 @@ example:
 
 ---
 url:
-**POST**    `/add/{cityName}/add`         
+**POST**    `/noteTo/{cityName}`         
 
 info:
-Add new note to exist city.
+Add new note to exist city. Note enter in body.
 
 example:
 
-    curl -v -H "Content-Type: application/json" -X POST -d 'Minsk a large town' http://localhost:666/add/Minsk/add
+    curl -v -H "Content-Type: application/json" -X POST -d 'Minsk a large town' http://localhost:666/noteTo/Minsk
 
 ---
 url:
 **POST**    `/update`         
 
 info:
-Update city by id, the id of the object being updated must be set to json object.
+Update city by an id, the id of the object being an updated must be set to in json object.
 
 example:
 
@@ -104,12 +104,12 @@ example:
 **Api map:bot:**
 
 url:
-**POST**    `/init/{name}`         
+**POST**    `/initPollingBot/{name}`         
 
 info:
-init new bot.
+init new polling bot.
 
 example:
 
-    curl -v -H "Content-Type: application/json" -X POST -d 'your bot_token here' http://localhost:666/init/HGEApp_Bot
+    curl -v -H "Content-Type: application/json" -X POST -d 'your bot_token here' http://localhost:666/initPollingBot/HGEApp_Bot
 

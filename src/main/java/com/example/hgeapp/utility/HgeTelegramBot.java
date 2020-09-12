@@ -19,8 +19,10 @@ public class HgeTelegramBot extends TelegramLongPollingBot {
     private final CityService cityService;
     private boolean isStart = false;
 
-    public HgeTelegramBot(CityService cityService) {
+    public HgeTelegramBot(CityService cityService, String botUsername, String botToken) {
         this.cityService = cityService;
+        this.botUsername = botUsername;
+        this.botToken = botToken;
     }
 
     @Override
@@ -63,16 +65,8 @@ public class HgeTelegramBot extends TelegramLongPollingBot {
         return botUsername;
     }
 
-    public void setBotUsername(String botUsername) {
-        this.botUsername = botUsername;
-    }
-
     @Override
     public String getBotToken() {
         return botToken;
-    }
-
-    public void setBotToken(String botToken) {
-        this.botToken = botToken;
     }
 }

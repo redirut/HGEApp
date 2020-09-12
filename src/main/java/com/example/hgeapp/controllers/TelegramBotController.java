@@ -6,41 +6,43 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 import org.telegram.telegrambots.ApiContextInitializer;
 import org.telegram.telegrambots.meta.TelegramBotsApi;
-import org.telegram.telegrambots.meta.generics.LongPollingBot;
-import org.telegram.telegrambots.meta.generics.WebhookBot;
-import org.telegram.telegrambots.starter.TelegramBotInitializer;
-
-import java.util.ArrayList;
-import java.util.List;
+import org.telegram.telegrambots.meta.exceptions.TelegramApiRequestException;
+import org.telegram.telegrambots.meta.generics.BotSession;
 
 @RestController
 public class TelegramBotController {
 
     private final static Logger LOG = LoggerFactory.getLogger(TelegramBotController.class);
-    private List<LongPollingBot> pollingBots = new ArrayList<>();
-    private List<WebhookBot> webhookBots = new ArrayList<>();
+    private final TelegramBotsApi telegramBotsApi;
     private final CityService cityService;
+    private BotSession botSession;
 
     public TelegramBotController(CityService cityService) {
         this.cityService = cityService;
+        telegramBotsApi = new TelegramBotsApi();
         ApiContextInitializer.init();
     }
 
-    @RequestMapping(value = "/init/{name}", method = RequestMethod.POST)
+    @RequestMapping(value = "/initPollingBot/{name}", method = RequestMethod.POST)
     ResponseEntity<?> initTelegramBot(@PathVariable String name, @RequestBody String token) {
-        TelegramBotInitializer telegramBotInitializer = new TelegramBotInitializer(new TelegramBotsApi(), pollingBots, webhookBots);
-        addPollingBot(name, token);
-        telegramBotInitializer.afterPropertiesSet();
-        return new ResponseEntity<>("\ngood bot is worked",HttpStatus.ACCEPTED);
-    }
-
-    private void addPollingBot(String name, String token) {
-        HgeTelegramBot bot = new HgeTelegramBot(cityService);
-        bot.setBotUsername(name);
-        bot.setBotToken(token);
-        pollingBots.add(bot);
+        try {
+            if (botSession == null || !botSession.isRunning()) {
+                botSession = telegramBotsApi.registerBot(new HgeTelegramBot(cityService, name, token));
+                LOG.info(String.format("bot witch %s name registered", name));
+            } else {
+                LOG.info(String.format("bot witch %s name is running", name));
+                return new ResponseEntity<>("\nbad, bot is running", HttpStatus.NOT_ACCEPTABLE);
+            }
+        } catch (TelegramApiRequestException e) {
+            return new ResponseEntity<>(String.format("\nbad, bot is not worked(%s)", e.getMessage()), HttpStatus.NOT_ACCEPTABLE);
+        }
+        return new ResponseEntity<>("\ngood, bot registered and worked", HttpStatus.ACCEPTED);
     }
 }
