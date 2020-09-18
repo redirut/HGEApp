@@ -1,4 +1,4 @@
-package com.example.hgeapp.utility;
+package com.example.hgeapp.models;
 
 import com.example.hgeapp.exceptions.ServicesException;
 import com.example.hgeapp.exceptions.ValidatorException;
@@ -12,8 +12,8 @@ import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
 public class HgeTelegramBot extends TelegramLongPollingBot {
 
-    private final static Logger log = LoggerFactory.getLogger(HgeTelegramBot.class);
-    private final String MESSAGE_HELLO = "Hello, use command '/stop' if you want stop bot";
+    private final static Logger LOG = LoggerFactory.getLogger(HgeTelegramBot.class);
+    private final String MESSAGE_HELLO = "Hello %s, use command '/stop' if you want stop bot";
     private String botUsername;
     private String botToken;
     private final CityService cityService;
@@ -28,19 +28,10 @@ public class HgeTelegramBot extends TelegramLongPollingBot {
     @Override
     public void onUpdateReceived(Update update) {
         if (update.getMessage().isCommand() && update.getMessage().getText().equals("/start")) {
-            sendMessage(update.getMessage().getChatId().toString(), MESSAGE_HELLO);
+            sendMessage(update.getMessage().getChatId().toString(), String.format(MESSAGE_HELLO,update.getMessage().getChat().getUserName()));
             isStart = true;
         } else if (isStart && update.hasMessage() && !update.getMessage().isCommand() && update.getMessage().hasText()) {
-            try {
-                cityService
-                        .getCity(update.getMessage().getText())
-                        .getNotes()
-                        .stream()
-                        .forEach(note -> sendMessage(update.getMessage().getChatId().toString(), note));
-            } catch (ServicesException | ValidatorException ex) {
-                sendMessage(update.getMessage().getChatId().toString(), String.format("Sorry, this  %s city not found.",
-                        update.getMessage().getText()));
-            }
+            sendingCityNotes(update);
         }
         if (update.getMessage().isCommand() && update.getMessage().getText().equals("/stop")) {
             sendMessage(update.getMessage().getChatId().toString(), "good buy.");
@@ -48,7 +39,20 @@ public class HgeTelegramBot extends TelegramLongPollingBot {
         }
     }
 
-    public synchronized void sendMessage(String chatId, String message) {
+    private void sendingCityNotes(Update update) {
+        try {
+            cityService
+                    .getCity(update.getMessage().getText())
+                    .getNotes()
+                    .stream()
+                    .forEach(note -> sendMessage(update.getMessage().getChatId().toString(), note));
+        } catch (ServicesException | ValidatorException ex) {
+            sendMessage(update.getMessage().getChatId().toString(), String.format("Sorry, this  %s city not found.",
+                    update.getMessage().getText()));
+        }
+    }
+
+    private synchronized void sendMessage(String chatId, String message) {
         SendMessage sendMessage = new SendMessage();
         sendMessage.enableMarkdown(true);
         sendMessage.setChatId(chatId);
@@ -56,7 +60,7 @@ public class HgeTelegramBot extends TelegramLongPollingBot {
         try {
             execute(sendMessage);
         } catch (TelegramApiException ex) {
-            log.error("sendMessage: error: " + ex.getMessage());
+            LOG.error("sendMessage: error: " + ex.getMessage());
         }
     }
 
