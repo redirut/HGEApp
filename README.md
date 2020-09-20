@@ -32,7 +32,7 @@ Add new city.
 
 example:
 
-    curl -v -H "Content-Type: application/json" -X POST -d '{"name":"Minsk", "notes":["Minsk is very good city","Minsk is capital of Belarus"]}' http://localhost:666/add
+    curl -v -H "Content-Type: application/json" -X POST -d '{"name":"Minsk", "notes":["Minsk is very good city","Minsk is capital of Belarus"]}' http://localhost:8088/add
 
 ---
 url:
@@ -43,7 +43,7 @@ Add new note to exist city. Note enter in body.
 
 example:
 
-    curl -v -H "Content-Type: application/json" -X POST -d 'Minsk a large town' http://localhost:666/noteTo/Minsk
+    curl -v -H "Content-Type: application/json" -X POST -d 'Minsk a large town' http://localhost:8088/noteTo/Minsk
 
 ---
 url:
@@ -54,7 +54,7 @@ Update city by an id, the id of the object being an updated must be set to in js
 
 example:
 
-    curl -v -H "Content-Type: application/json" -X POST -d '{"id":"1", "name":"Minsk", "notes":["Minsk very big city"]}' http://localhost:666/update
+    curl -v -H "Content-Type: application/json" -X POST -d '{"id":"1", "name":"Minsk", "notes":["Minsk very big city"]}' http://localhost:8088/update
 
 ---
 url:
@@ -65,7 +65,7 @@ Get city by name.
 
 example:
 
-    curl -v http://localhost:666/get/Minsk
+    curl -v http://localhost:8088/get/Minsk
 
 ---
 url:
@@ -76,7 +76,7 @@ Get all cities.
 
 example:
 
-    curl -v http://localhost:666/all
+    curl -v http://localhost:8088/all
 
 ---
 url:
@@ -87,7 +87,7 @@ Remove city.
 
 example:
 
-    curl -v -H "Content-Type: application/json" -X POST -d '{"id":"1", "name":"Minsk"}' http://localhost:666/remove
+    curl -v -H "Content-Type: application/json" -X POST -d '{"id":"1", "name":"Minsk"}' http://localhost:8088/remove
 
 ---
 url:
@@ -98,7 +98,7 @@ Remove city by name.
 
 example:
 
-    curl -v http://localhost:666/remove/Minsk
+    curl -v http://localhost:8088/remove/Minsk
 
 ---    
 **Api map:bot:**
@@ -111,5 +111,5 @@ init new polling bot.
 
 example:
 
-    curl -v -H "Content-Type: application/json" -X POST -d 'your bot_token here' http://localhost:666/initPollingBot/HGEApp_Bot
+    curl -v -H "Content-Type: application/json" -X POST -d 'your bot_token here' http://localhost:8088/initPollingBot/HGEApp_Bot
 

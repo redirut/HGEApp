@@ -28,9 +28,9 @@ public class CityController {
         try {
             cityService.addNote(cityName, note);
         } catch (ServicesException ex) {
-            return new ResponseEntity<>("\n" + ex.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>(ex.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         } catch (ValidatorException ex) {
-            return new ResponseEntity<>("\n" + ex.getMessage(), HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(ex.getMessage(), HttpStatus.NOT_FOUND);
         }
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
@@ -40,9 +40,9 @@ public class CityController {
         try {
             cityService.createCity(city);
         } catch (ServicesException ex) {
-            return new ResponseEntity<>("\n" + ex.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>(ex.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         } catch (ValidatorException ex) {
-            return new ResponseEntity<>("\n" + ex.getMessage(), HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(ex.getMessage(), HttpStatus.NOT_FOUND);
         }
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
@@ -52,9 +52,9 @@ public class CityController {
         try {
             cityService.updateCity(city);
         } catch (ServicesException ex) {
-            return new ResponseEntity<>("\n" + ex.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>(ex.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         } catch (ValidatorException ex) {
-            return new ResponseEntity<>("\n" + ex.getMessage(), HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(ex.getMessage(), HttpStatus.NOT_FOUND);
         }
         return new ResponseEntity<>(HttpStatus.OK);
     }
@@ -65,9 +65,9 @@ public class CityController {
         try {
             city = cityService.getCity(cityName);
         } catch (ServicesException ex) {
-            return new ResponseEntity<>("\n" + ex.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>(ex.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         } catch (ValidatorException ex) {
-            return new ResponseEntity<>("\n" + ex.getMessage(), HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(ex.getMessage(), HttpStatus.NOT_FOUND);
         }
         return new ResponseEntity<>(city, HttpStatus.OK);
     }
@@ -82,9 +82,9 @@ public class CityController {
         try {
             cityService.removeById(city);
         } catch (ServicesException ex) {
-            return new ResponseEntity<>("\n" + ex.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>(ex.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         } catch (ValidatorException ex) {
-            return new ResponseEntity<>("\n" + ex.getMessage(), HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(ex.getMessage(), HttpStatus.NOT_FOUND);
         }
         return new ResponseEntity<>(HttpStatus.OK);
     }
@@ -94,9 +94,9 @@ public class CityController {
         try {
             cityService.removeByName(cityName);
         } catch (ServicesException ex) {
-            return new ResponseEntity<>("\n" + ex.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>(ex.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         } catch (ValidatorException ex) {
-            return new ResponseEntity<>("\n" + ex.getMessage(), HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(ex.getMessage(), HttpStatus.NOT_FOUND);
         }
         return new ResponseEntity<>(HttpStatus.OK);
     }

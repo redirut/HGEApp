@@ -37,14 +37,14 @@ public class TelegramBotController {
         try {
             if (!botSession.isRunning()) {
                 botSession = telegramBotsApi.registerBot(new HgeTelegramBot(cityService, name, token));
-                LOG.info(String.format("bot witch %s name registered", name));
+                LOG.info("bot witch {} name registered", name);
             } else {
-                LOG.info(String.format("bot witch %s name is running", name));
-                return new ResponseEntity<>("\nnon initialised, bot is running", HttpStatus.NOT_ACCEPTABLE);
+                LOG.info("bot witch {} name is running", name);
+                return new ResponseEntity<>("non initialised, bot is running", HttpStatus.NOT_ACCEPTABLE);
             }
         } catch (TelegramApiRequestException e) {
-            return new ResponseEntity<>(String.format("\nbad, bot is not worked(%s)", e.getMessage()), HttpStatus.NOT_ACCEPTABLE);
+            return new ResponseEntity<>(String.format("bad, bot is not worked(%s)", e.getMessage()), HttpStatus.NOT_ACCEPTABLE);
         }
-        return new ResponseEntity<>("\ngood, bot registered and worked", HttpStatus.ACCEPTED);
+        return new ResponseEntity<>("good, bot registered and worked", HttpStatus.ACCEPTED);
     }
 }
